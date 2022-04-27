@@ -9,6 +9,12 @@ namespace SubjectPickData.DbContextConfigurations
         public void Configure(EntityTypeBuilder<Subject> builder)
         {
             builder
+                .Property(nameof(Subject.Title))
+                .IsRequired();
+            builder
+                .Property(nameof(Subject.Description))
+                .IsRequired();
+            builder
                 .Property(nameof(Subject.ImagePath))
                 .IsRequired(false);
         }

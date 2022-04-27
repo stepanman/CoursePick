@@ -9,6 +9,15 @@ namespace SubjectPickData.DbContextConfigurations
         public void Configure(EntityTypeBuilder<Student> builder)
         {
             builder
+                .Property(nameof(Student.Surname))
+                .IsRequired();
+            builder
+                .Property(nameof(Student.Name))
+                .IsRequired();
+            builder
+                .Property(nameof(Student.Email))
+                .IsRequired();
+            builder
                 .Property(nameof(Student.Resume))
                 .IsRequired(false);
             builder

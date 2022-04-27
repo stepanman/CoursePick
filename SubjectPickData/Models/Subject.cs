@@ -17,7 +17,7 @@ namespace SubjectPickData.Models
 
         public ICollection<Student> Students { get; set; }
 
-        public Guid TutorId { get; set; }
+        public int TutorId { get; set; }
         public Tutor Tutor { get; set; }
     }
 }
