@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SubjectPickData.Models;
 
 namespace MvcSubjectPick
 {
@@ -45,6 +46,14 @@ namespace MvcSubjectPick
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
+            //adding db seeding
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                SeedData.Initialize(services);
+            }
+
             app.UseStaticFiles();
 
             app.UseRouting();
