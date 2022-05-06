@@ -9,13 +9,13 @@ using SubjectPickData.DbContextConfigurations;
 
 namespace SubjectPickData
 {
-    public class SubjectPickDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<Student> Students { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Tutor> Tutors { get; set; }
 
-        public SubjectPickDbContext(DbContextOptions<SubjectPickDbContext> options) : base(options) {}
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {}
         
         protected override void OnModelCreating(ModelBuilder builder)
         {

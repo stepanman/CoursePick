@@ -28,7 +28,7 @@ namespace MvcSubjectPick
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<SubjectPickDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
@@ -46,13 +46,6 @@ namespace MvcSubjectPick
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-
-            //adding db seeding
-            using (var scope = app.ApplicationServices.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                SeedData.Initialize(services);
-            }
 
             app.UseStaticFiles();
 

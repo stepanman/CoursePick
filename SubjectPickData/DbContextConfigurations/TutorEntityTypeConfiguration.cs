@@ -10,19 +10,25 @@ namespace SubjectPickData.DbContextConfigurations
         {
             builder
                 .Property(nameof(Tutor.Surname))
+                .HasMaxLength(30)
                 .IsRequired();
             builder
                 .Property(nameof(Tutor.Name))
+                .HasMaxLength(30)
                 .IsRequired();
             builder
                 .Property(nameof(Tutor.Email))
                 .IsRequired();
             builder
                 .Property(nameof(Tutor.Resume))
+                .HasMaxLength(120)
                 .IsRequired(false);
             builder
                 .Property(nameof(Tutor.ImagePath))
                 .IsRequired(false);
+            builder
+                .HasIndex(nameof(Tutor.Email))
+                .IsUnique();
         }
     }
 }

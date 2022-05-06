@@ -10,9 +10,11 @@ namespace SubjectPickData.DbContextConfigurations
         {
             builder
                 .Property(nameof(Subject.Title))
+                .HasMaxLength(30)
                 .IsRequired();
             builder
                 .Property(nameof(Subject.Description))
+                .HasMaxLength(120)
                 .IsRequired();
             builder
                 .Property(nameof(Subject.ImagePath))

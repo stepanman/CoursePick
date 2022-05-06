@@ -12,9 +12,9 @@ namespace MvcSubjectPick.Controllers
 {
     public class TutorsController : Controller
     {
-        private readonly SubjectPickDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public TutorsController(SubjectPickDbContext context)
+        public TutorsController(ApplicationDbContext context)
         {
             _context = context;
         }
