@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SubjectPickData.Models
+namespace CoursePickData.Models
 {
     public class Tutor
     {
@@ -17,6 +17,6 @@ namespace SubjectPickData.Models
         public string Resume { get; set; }
         public string ImagePath { get; set; }
 
-        public ICollection<Subject> Subjects;
+        public ICollection<Course> Courses;
     }
 }

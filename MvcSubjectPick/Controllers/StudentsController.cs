@@ -5,29 +5,33 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SubjectPickData;
-using SubjectPickData.Models;
-using SubjectPickDataAccess;
+using CoursePickData;
+using CoursePickData.Models;
+using CoursePickDataAccess;
+using Microsoft.AspNetCore.Authorization;
 
-namespace MvcSubjectPick.Controllers
+namespace CoursePick.Controllers
 {
+    [Authorize(Roles = "Admin,Tutor")]
     public class StudentsController : Controller
     {
-        private readonly IStudentInteractor _studentInteractor;
+        private readonly IDbInteractor _interactor;
         private readonly ApplicationDbContext _context;
 
         public StudentsController(ApplicationDbContext context)
         {
             _context = context;
-            _studentInteractor = new DbInteractor(context);
+            _interactor = new DbInteractor(context);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Students
         public async Task<IActionResult> Index()
         {
             return View(await _context.Students.ToListAsync());
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Students/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -46,6 +50,7 @@ namespace MvcSubjectPick.Controllers
             return View(student);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Students/Create
         public IActionResult Create()
         {

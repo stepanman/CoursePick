@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SubjectPickData.Models
+namespace CoursePickData.Models
 {
-    public class Subject
+    public class Course
     {
         public int Id { get; set; }
         public string Title { get; set; }

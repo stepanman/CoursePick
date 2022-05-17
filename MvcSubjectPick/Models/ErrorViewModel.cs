@@ -1,6 +1,6 @@
 using System;
 
-namespace MvcSubjectPick.Models
+namespace CoursePick.Models
 {
     public class ErrorViewModel
     {

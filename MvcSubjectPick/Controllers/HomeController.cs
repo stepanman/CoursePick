@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MvcSubjectPick.Models;
+using CoursePick.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MvcSubjectPick.Controllers
+namespace CoursePick.Controllers
 {
     public class HomeController : Controller
     {

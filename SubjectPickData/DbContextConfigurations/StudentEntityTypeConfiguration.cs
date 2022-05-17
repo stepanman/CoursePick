@@ -1,8 +1,8 @@
-﻿using SubjectPickData.Models;
+﻿using CoursePickData.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace SubjectPickData.DbContextConfigurations
+namespace CoursePickData.DbContextConfigurations
 {
     public class StudentEntityTypeConfiguration : IEntityTypeConfiguration<Student>
     {

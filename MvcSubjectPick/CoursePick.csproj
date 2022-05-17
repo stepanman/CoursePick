@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.11" />
@@ -22,9 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SubjectPickDataAccess\SubjectPickDataAccess.csproj" />
-    <ProjectReference Include="..\SubjectPickData\SubjectPickData.csproj" />
-    <ProjectReference Include="..\SubjectPickIdentityData\SubjectPickIdentityData.csproj" />
+    <ProjectReference Include="..\SubjectPickDataAccess\CoursePickDataAccess.csproj" />
+    <ProjectReference Include="..\SubjectPickData\CoursePickData.csproj" />
+    <ProjectReference Include="..\SubjectPickIdentityData\CoursePickIdentityData.csproj" />
   </ItemGroup>
 
 </Project>

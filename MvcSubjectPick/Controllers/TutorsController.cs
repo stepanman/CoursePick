@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SubjectPickData;
-using SubjectPickData.Models;
+using CoursePickData;
+using CoursePickData.Models;
 
-namespace MvcSubjectPick.Controllers
+namespace CoursePick.Controllers
 {
     public class TutorsController : Controller
     {

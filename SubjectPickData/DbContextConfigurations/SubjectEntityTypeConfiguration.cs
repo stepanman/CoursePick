@@ -1,23 +1,23 @@
-﻿using SubjectPickData.Models;
+﻿using CoursePickData.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace SubjectPickData.DbContextConfigurations
+namespace CoursePickData.DbContextConfigurations
 {
-    public class SubjectEntityTypeConfiguration : IEntityTypeConfiguration<Subject>
+    public class CourseEntityTypeConfiguration : IEntityTypeConfiguration<Course>
     {
-        public void Configure(EntityTypeBuilder<Subject> builder)
+        public void Configure(EntityTypeBuilder<Course> builder)
         {
             builder
-                .Property(nameof(Subject.Title))
+                .Property(nameof(Course.Title))
                 .HasMaxLength(30)
                 .IsRequired();
             builder
-                .Property(nameof(Subject.Description))
+                .Property(nameof(Course.Description))
                 .HasMaxLength(120)
                 .IsRequired();
             builder
-                .Property(nameof(Subject.ImagePath))
+                .Property(nameof(Course.ImagePath))
                 .IsRequired(false);
         }
     }

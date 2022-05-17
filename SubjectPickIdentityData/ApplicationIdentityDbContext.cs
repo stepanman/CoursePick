@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace SubjectPickIdentityData
+namespace CoursePickIdentityData
 {
-    public class ApplicationIdentityDbContext : IdentityDbContext
+    public class ApplicationIdentityDbContext : IdentityDbContext<IdentityUser>
     {
         public ApplicationIdentityDbContext(DbContextOptions<ApplicationIdentityDbContext> options)
         : base(options)

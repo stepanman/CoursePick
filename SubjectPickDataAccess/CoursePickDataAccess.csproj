@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SubjectPickData\SubjectPickData.csproj" />
+    <ProjectReference Include="..\SubjectPickData\CoursePickData.csproj" />
   </ItemGroup>
 
 </Project>

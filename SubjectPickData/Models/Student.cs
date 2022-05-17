@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace SubjectPickData.Models
+namespace CoursePickData.Models
 {
     public class Student
     {
@@ -14,6 +14,6 @@ namespace SubjectPickData.Models
         public string Resume { get; set; }
 
 
-        public ICollection<Subject> Subjects { get; set; }
+        public ICollection<Course> Courses { get; set; }
     }
 }
