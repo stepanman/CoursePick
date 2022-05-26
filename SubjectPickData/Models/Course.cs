@@ -13,7 +13,6 @@ namespace CoursePickData.Models
         public string Description { get; set; }
         public int MaxStudents { get; set; }
         public TimeSpan Duration { get; set; }
-        public string ImagePath { get; set; }
 
         public ICollection<Student> Students { get; set; }
 

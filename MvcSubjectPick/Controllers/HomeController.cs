@@ -2,9 +2,10 @@
 using Microsoft.Extensions.Logging;
 using CoursePick.Models;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+using CoursePickData;
+using CoursePickIdentityData;
+using CoursePickDataSeeding;
 using System.Threading.Tasks;
 
 namespace CoursePick.Controllers
@@ -12,19 +13,23 @@ namespace CoursePick.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext _context;
+        private readonly ApplicationIdentityDbContext _identityContext;
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context, ApplicationIdentityDbContext identityContext)
         {
             _logger = logger;
+            _context = context;
+            _identityContext = identityContext;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
+            IDbSeeder seeder;
+            seeder = new DbSeeder(_context);
+            await seeder.Seed();
+            seeder = new IdentityDbSeeder(_identityContext);
+            await seeder.Seed();
 
-        public IActionResult Privacy()
-        {
             return View();
         }
 

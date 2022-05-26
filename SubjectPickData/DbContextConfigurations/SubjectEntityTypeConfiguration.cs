@@ -16,9 +16,6 @@ namespace CoursePickData.DbContextConfigurations
                 .Property(nameof(Course.Description))
                 .HasMaxLength(120)
                 .IsRequired();
-            builder
-                .Property(nameof(Course.ImagePath))
-                .IsRequired(false);
         }
     }
 }

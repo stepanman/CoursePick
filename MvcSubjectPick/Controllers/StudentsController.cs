@@ -9,30 +9,31 @@ using CoursePickData;
 using CoursePickData.Models;
 using CoursePickDataAccess;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace CoursePick.Controllers
 {
-    [Authorize(Roles = "Admin,Tutor")]
+    [Authorize]
     public class StudentsController : Controller
     {
         private readonly IDbInteractor _interactor;
-        private readonly ApplicationDbContext _context;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public StudentsController(ApplicationDbContext context)
+        public StudentsController(ApplicationDbContext context, SignInManager<IdentityUser> signInManager)
         {
-            _context = context;
             _interactor = new DbInteractor(context);
+            _signInManager = signInManager;
         }
 
-        [Authorize(Roles = "Admin")]
-        // GET: Students
+        [Authorize(Roles = "Tutor")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Students.ToListAsync());
+            IdentityUser user = await _signInManager.UserManager.GetUserAsync(User);
+            Tutor tutor = await _interactor.GetTutorByEmailAsync(user.Email);
+            return View(await _interactor.GetStudentsOfTutorAsync(tutor.Id));
         }
 
-        [Authorize(Roles = "Admin")]
-        // GET: Students/Details/5
+
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,122 +41,12 @@ namespace CoursePick.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.Id == id);
+            Student student = await _interactor.GetStudentByIdAsync((int)id);
+
             if (student == null)
-            {
                 return NotFound();
-            }
 
             return View(student);
-        }
-
-        [Authorize(Roles = "Admin")]
-        // GET: Students/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Students/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Surname,Name,Email,ImagePath,Resume")] Student student)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(student);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(student);
-        }
-
-        // GET: Students/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
-            {
-                return NotFound();
-            }
-            return View(student);
-        }
-
-        // POST: Students/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Surname,Name,Email,ImagePath,Resume")] Student student)
-        {
-            if (id != student.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(student);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!StudentExists(student.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(student);
-        }
-
-        // GET: Students/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (student == null)
-            {
-                return NotFound();
-            }
-
-            return View(student);
-        }
-
-        // POST: Students/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var student = await _context.Students.FindAsync(id);
-            _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool StudentExists(int id)
-        {
-            return _context.Students.Any(e => e.Id == id);
         }
     }
 }

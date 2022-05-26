@@ -2,59 +2,54 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<style>
+    main {
+        display: grid;
+        grid-template-rows: 1fr 9fr;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Surname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Resume)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Surname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Resume)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    main > h1 {
+        place-self: center center;
+    }
+
+    main > section {
+        align-items: flex-start;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    main > section > a {
+        all: unset;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--main-text-color);
+        background-color: var(--lighter-main-bg-color);
+        border-radius: 10%;
+    }
+
+    main > section > a:hover {
+        background-color: var(--secondary-bg-color);
+        color: var(--secondary-text-color);
+        transition: all 0.4s ease-out;
+    }
+
+    img {
+        width: 150px;
+        height: 200px;
+    }
+</style>
+
+<h1>Students</h1>
+<section class="flex flex-wrap">
+    @foreach (var student in Model)
+    {
+        <a asp-action="Details" asp-route-id="@student.Id">
+            <img src="../../@student.ImagePath" />
+            <h2>@student.Surname @student.Name</h2>
+            <h3>@student.Email</h3>
+        </a>
+    }
+</section>

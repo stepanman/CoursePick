@@ -17,6 +17,6 @@ namespace CoursePickData.Models
         public string Resume { get; set; }
         public string ImagePath { get; set; }
 
-        public ICollection<Course> Courses;
+        public ICollection<Course> Courses { get; set; }
     }
 }

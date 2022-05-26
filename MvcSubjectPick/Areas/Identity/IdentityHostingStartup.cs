@@ -17,10 +17,11 @@ namespace CoursePick.Areas.Identity
             builder.ConfigureServices((context, services) =>
             {
                 services.AddDbContext<ApplicationIdentityDbContext>(options =>
-                    options.UseSqlServer(
-                        context.Configuration.GetConnectionString("ApplicationIdentityDbConnection")));
+                options.UseSqlServer(
+                    context.Configuration.GetConnectionString("ApplicationDbConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                    .AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationIdentityDbContext>();
 
                 services.Configure<IdentityOptions>(options =>
@@ -36,6 +37,6 @@ namespace CoursePick.Areas.Identity
                     options.User.RequireUniqueEmail = true;
                 });
             });
-        }   
+        }
     }
 }

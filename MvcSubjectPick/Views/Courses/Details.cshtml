@@ -1,0 +1,64 @@
+﻿@model CoursePickData.Models.Course
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+    main {
+        display: grid;
+        grid-template: repeat(6, 1fr) / 1fr;
+        place-items: center;
+    }
+
+    #info{
+        grid-row: 1 / span 2;
+    }
+
+    #students {
+        grid-row: 4 / span 3;
+    }
+
+    #students > a {
+        all: unset;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--main-text-color);
+        background-color: var(--lighter-main-bg-color);
+        border-radius: 10%;
+    }
+
+    #students > a:hover {
+        color: var(--secondary-text-color);
+        background-color: var(--secondary-bg-color);
+        border-radius: 20%;
+        transition: all 0.4s ease-out;
+    }
+
+    img {
+        width: 150px;
+        height: 200px;
+    }
+</style>
+
+<section id="info" class="flex flex-column">
+    <h1>@Model.Title</h1>
+    <h2>Tutor: @Model.Tutor.Surname @Model.Tutor.Name</h2>
+    <h2>Duration: @Model.Duration.TotalHours hours</h2>
+    <h2>Students: @Model.Students.Count / @Model.MaxStudents</h2>
+    <p>@Model.Description</p>
+</section>
+
+<h1>Students</h1>
+@*if user is tutor and it's their course, then show students*@
+<section id="students" class="flex flex-wrap">
+    @foreach (var student in Model.Students)
+    {
+        <a asp-controller="Students" asp-action="Details" asp-route-id="@student.Id">
+            <img src="../../@student.ImagePath" />
+            <figcaption>@student.Surname @student.Name</figcaption>
+        </a>
+    }
+</section>
+

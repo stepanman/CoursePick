@@ -1,8 +1,26 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity;
+
+@inject SignInManager<IdentityUser> SignInManager
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<style>
+    main{
+        display: grid;
+        place-items: center center;
+        align-content: center;
+        color: var(--main-text-color);
+    }
+</style>
+
+<h1>Welcome To Courses Management Application</h1>
+
+@if (SignInManager.IsSignedIn(User)) 
+{
+    <h2>
+        Signed In As @User.Identity.Name
+    </h2>    
+}

@@ -24,8 +24,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SubjectPickDataAccess\CoursePickDataAccess.csproj" />
+    <ProjectReference Include="..\SubjectPickDataSeeding\CoursePickDataSeeding.csproj" />
     <ProjectReference Include="..\SubjectPickData\CoursePickData.csproj" />
     <ProjectReference Include="..\SubjectPickIdentityData\CoursePickIdentityData.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\users-photos\" />
   </ItemGroup>
 
 </Project>

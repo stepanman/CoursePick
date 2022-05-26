@@ -1,0 +1,30 @@
+﻿@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    main {
+        display: grid;
+        grid-template: repeat(4, 1fr) / repeat(4, 1fr);
+        grid-template-areas: ". . . ."
+            ". form form ."
+            ". form form ."
+            ". . . .";
+    }
+
+    main > form {
+        grid-area: form;
+        align-items: center;
+        justify-content: space-around;
+        color: var(--main-text-color);
+        }
+</style>
+
+<form class="flex flex-column" asp-action="Login">
+    <label>Email: <input asp-for="@Model.Email" type="email" /></label>
+    <label>Password: <input asp-for="@Model.Password" type="password" /></label>
+    <input type="submit" value="Log In" />
+</form>

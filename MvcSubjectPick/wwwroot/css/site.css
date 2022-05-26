@@ -8,17 +8,12 @@
     display: flex;
 }
 
-.flex-row {
-    flex-direction: row;
-}
-
-.flex-row-reverse {
-    flex-direction: row-reverse;
-}
-
 .flex-column {
-    display: flex;
     flex-direction: column;
+}
+
+.flex-column-reverse {
+    flex-direction: column-reverse;
 }
 
 .flex-wrap {
@@ -29,39 +24,42 @@
 
 :root {
     --main-bg-color: #202124;
+    --lighter-main-bg-color: #303030;
     --secondary-bg-color: #421799;
+    --main-text-color: #abb1b8;
+    --secondary-text-color: #dcdae0;
 }
-
 
 * {
     margin: 0;
 }
 
 body {
-    grid-template-rows: minmax(100vh, 1fr);
-    grid-template-columns: 1fr 19fr;
+    grid-template: 100vh / minmax(70px, 1fr) 19fr;
     grid-template-areas: "nav main";
     background-color: var(--main-bg-color);
+    color: var(--main-text-color);
 }
+
+/*navbar config*/
 
 nav {
+    top: 0;
+    position: sticky;
     grid-area: nav;
-    background-color: #303030;
+    grid-template-rows: 2fr 1fr;
+    background-color: var(--lighter-main-bg-color);
 }
 
-main {
-    grid-area: main;
-}
 
-nav > button {
-    border-width: 0;
+nav a {
     background-color: transparent;
-    color: #abb1b8;
+    color: var(--main-text-color);
 }
 
-    nav > button:hover {
-        border-radius: 35%;
-        background-color: var(--secondary-bg-color);
-        color: #dcdae0;
-        transition: all 0.4s ease-out;
-    }
+nav a:hover {
+    border-radius: 32%;
+    background-color: var(--secondary-bg-color);
+    color: var(--secondary-text-color);
+    transition: all 0.4s ease-out;
+}

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CoursePickData;
 using CoursePickData.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoursePickDataAccess
 {
@@ -16,59 +17,66 @@ namespace CoursePickDataAccess
             _context = context;
         }
 
-
-        public async Task EnrollStudentAsync(Student student)
+        public Task<List<Course>> GetCoursesAsync()
         {
-            await _context.Students.AddAsync(student);
-            await _context.SaveChangesAsync();
-        }
-        public async Task ExpelStudentAsync(Student student)
-        {
-            _context.Students.Remove(student);
-            await _context.SaveChangesAsync();
+            return _context.Courses.Include(c => c.Tutor).ToListAsync();
         }
 
-        public async Task HireTutorAsync(Tutor tutor)
+        public Task<List<Student>> GetStudentsAsync()
         {
-            await _context.Tutors.AddAsync(tutor);
-            await _context.SaveChangesAsync();
-        }
-        public async Task FireTutorAsync(Tutor tutor)
-        {
-            _context.Tutors.Remove(tutor);
-            await _context.SaveChangesAsync();
+            return _context.Students.ToListAsync();
         }
 
-
-
-        public async Task AddCourseAsync(Course course)
+        public Task<List<Tutor>> GetTutorsAsync()
         {
-            await _context.AddAsync(course);
-            await _context.SaveChangesAsync();
-        }
-        public async Task CancelCourseAsync(Course course)
-        {
-            _context.Remove(course);
-            await _context.SaveChangesAsync();
+            return _context.Tutors.ToListAsync();
         }
 
-
-        public async Task EnrollStudentInCourseAsync(Student student, Course course)
+        public Task<Course> GetCourseByIdAsync(int id)
         {
-            _context.Courses.FirstOrDefault(c => c == course).Students.Add(student);
-            await _context.SaveChangesAsync();
-
-        }
-        public async Task ExpelStudentFromCourseAsync(Student student, Course course)
-        {
-            _context.Courses.FirstOrDefault(c => c == course).Students.Remove(student);
-            await _context.SaveChangesAsync();
+            return _context.Courses
+                            .Include(c => c.Tutor)
+                            .Include(c => c.Students)
+                            .FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task AssignTutorToCourseAsync(Tutor tutor, Course course)
+        public Task<Student> GetStudentByIdAsync(int id)
         {
-            _context.Courses.FirstOrDefault(c => c == course).Tutor = tutor;
-            await _context.SaveChangesAsync();
+            return _context.Students
+                            .Include(s => s.Courses)
+                            .ThenInclude(c => c.Tutor)
+                            .FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+        public Task<Student> GetStudentByEmailAsync(string email)
+        {
+            return _context.Students
+                            .Include(s => s.Courses)
+                            .ThenInclude(c => c.Tutor)
+                            .FirstOrDefaultAsync(t => t.Email == email);
+
+        }
+
+        public Task<Tutor> GetTutorByIdAsync(int id)
+        {
+            return _context.Tutors
+                            .Include(t => t.Courses)
+                            .FirstOrDefaultAsync(t => t.Id == id);
+        }
+
+        public Task<Tutor> GetTutorByEmailAsync(string email)
+        {
+            return _context.Tutors
+                            .Include(t => t.Courses)
+                            .FirstOrDefaultAsync(t => t.Email == email);
+        }
+
+        public Task<List<Student>> GetStudentsOfTutorAsync(int id)
+        {
+            return _context.Students
+                            .Include(s => s.Courses)
+                            .Where(s => s.Courses.Select(c => c.TutorId).Contains(id))
+                            .ToListAsync();
         }
     }
 }
