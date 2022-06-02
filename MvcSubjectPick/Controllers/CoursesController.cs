@@ -9,6 +9,7 @@ using CoursePickData;
 using CoursePickData.Models;
 using CoursePickDataAccess;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace CoursePick.Controllers
 {
@@ -16,10 +17,12 @@ namespace CoursePick.Controllers
     public class CoursesController : Controller
     {
         private readonly IDbInteractor _interactor;
+        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public CoursesController(ApplicationDbContext context)
+        public CoursesController(ApplicationDbContext context, SignInManager<IdentityUser> signInManager)
         {
             _interactor = new DbInteractor(context);
+            _signInManager = signInManager;
         }
 
         public async Task<IActionResult> Index()
@@ -45,32 +48,35 @@ namespace CoursePick.Controllers
             return View();
         }
 
-        /*[HttpPost]
+
+        [Authorize(Roles = "Tutor")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,MaxStudents,Duration,ImagePath,TutorId")] Course subject)
+        public async Task<IActionResult> Create([Bind("Title,Description,MaxStudents,Duration")] Course course)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(subject);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                IdentityUser user = await _signInManager.UserManager.GetUserAsync(User);
+                Tutor tutor = await _interactor.GetTutorByEmailAsync(user.Email);
+
+                course.TutorId = tutor.Id;
+                await _interactor.AddCourseAsync(course);
             }
-            return View(subject);
+            return View(course);
         }
 
+/*        [Authorize(Roles = "Tutor")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            var subject = await _context.Courses.FindAsync(id);
-            if (subject == null)
-            {
+            Course course = await _interactor.GetCourseByIdAsync((int)id);
+
+            if (course == null)
                 return NotFound();
-            }
-            return View(subject);
+
+            return View(course);
         }
 
         [HttpPost]

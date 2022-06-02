@@ -80,7 +80,7 @@ namespace CoursePickDataSeeding
                     Title = "Digital Marketing",
                     Description = "Course about digital marketing",
                     MaxStudents = 40,
-                    Duration = TimeSpan.FromHours(12),
+                    Duration = 12,
                     Students = new List<Student>()
                 },
                 new Course
@@ -88,7 +88,7 @@ namespace CoursePickDataSeeding
                     Title = "Social Media",
                     Description = "Course about social media",
                     MaxStudents = 50,
-                    Duration = TimeSpan.FromHours(8),
+                    Duration = 8,
                     Students = new List<Student>()
                 },
                 new Course
@@ -96,7 +96,7 @@ namespace CoursePickDataSeeding
                     Title = "Data Science",
                     Description = "Course about data science",
                     MaxStudents = 25,
-                    Duration = TimeSpan.FromHours(16),
+                    Duration = 16,
                     Students = new List<Student>()
                 },
                 new Course
@@ -104,7 +104,7 @@ namespace CoursePickDataSeeding
                     Title = "Data Analytics",
                     Description = "Course about data analytics",
                     MaxStudents = 50,
-                    Duration = TimeSpan.FromHours(10),
+                    Duration = 10,
                     Students = new List<Student>()
                 },
                 new Course
@@ -112,7 +112,7 @@ namespace CoursePickDataSeeding
                     Title = "Cybersecurity",
                     Description = "Course about cybersecurity",
                     MaxStudents = 45,
-                    Duration = TimeSpan.FromHours(22),
+                    Duration = 22,
                     Students = new List<Student>()
                 },
                 new Course
@@ -120,7 +120,7 @@ namespace CoursePickDataSeeding
                     Title = "UI/UX Design",
                     Description = "Course about UI/UI design",
                     MaxStudents = 65,
-                    Duration = TimeSpan.FromHours(15),
+                    Duration = 15,
                     Students = new List<Student>()
                 },
                 new Course
@@ -128,7 +128,7 @@ namespace CoursePickDataSeeding
                     Title = "Project Management",
                     Description = "Course about project mamangement",
                     MaxStudents = 50,
-                    Duration = TimeSpan.FromHours(12),
+                    Duration = 12,
                     Students = new List<Student>()
                 },
                 new Course
@@ -136,7 +136,7 @@ namespace CoursePickDataSeeding
                     Title = "IT Support",
                     Description = "Course about IT support",
                     MaxStudents = 30,
-                    Duration = TimeSpan.FromHours(12),
+                    Duration = 12,
                     Students = new List<Student>()
                 },
             };

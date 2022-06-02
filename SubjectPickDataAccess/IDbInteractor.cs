@@ -9,21 +9,30 @@ namespace CoursePickDataAccess
 {
     public interface IDbInteractor
     {
-        Task<List<Course>> GetCoursesAsync();
-        Task<List<Student>> GetStudentsAsync();
-        Task<List<Tutor>> GetTutorsAsync();
+        public Task<List<Course>> GetAllCoursesAsync();
 
+        public Task<List<Course>> GetCoursesOfTutorAsync(int tutorId);
 
+        public Task<List<Student>> GetAllStudentsAsync();
 
-        Task<Course> GetCourseByIdAsync(int id);
+        public Task<List<Student>> GetStudentsOfTutorAsync(int tutorId);
 
-        Task<Student> GetStudentByIdAsync(int id);
-        Task<Student> GetStudentByEmailAsync(string email);
-        
-        Task<Tutor> GetTutorByIdAsync(int id);
-        Task<Tutor> GetTutorByEmailAsync(string email);
+        public Task<List<Tutor>> GetAllTutorsAsync();
 
+        public Task<Course> GetCourseByIdAsync(int id);
 
-        Task<List<Student>> GetStudentsOfTutorAsync(int id);
+        public Task<bool> CourseExists(int id);
+
+        public Task<bool> CourseWithSameTitleExistsAsync(string title);
+
+        public Task<Student> GetStudentByIdAsync(int id);
+
+        public Task<Student> GetStudentByEmailAsync(string email);
+
+        public Task<Tutor> GetTutorByIdAsync(int id);
+
+        public Task<Tutor> GetTutorByEmailAsync(string email);
+
+        public Task<int> AddCourseAsync(Course course);
     }
 }

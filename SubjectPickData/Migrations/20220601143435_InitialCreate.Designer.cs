@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoursePickData.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220518221420_InitialCreate")]
+    [Migration("20220601143435_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,14 +33,11 @@ namespace CoursePickData.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("nvarchar(120)");
 
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("time");
+                    b.Property<long>("Duration")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MaxStudents")
-                        .HasColumnType("int");
+                    b.Property<long>("MaxStudents")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -150,7 +147,7 @@ namespace CoursePickData.Migrations
             modelBuilder.Entity("CoursePickData.Models.Course", b =>
                 {
                     b.HasOne("CoursePickData.Models.Tutor", "Tutor")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("TutorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -171,6 +168,11 @@ namespace CoursePickData.Migrations
                         .HasForeignKey("StudentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CoursePickData.Models.Tutor", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

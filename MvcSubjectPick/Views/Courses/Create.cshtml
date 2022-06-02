@@ -1,0 +1,104 @@
+﻿@model CoursePickData.Models.Course
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    main {
+        display: grid;
+        grid-template: repeat(12, 1fr) / repeat(12, 1fr);
+    }
+    
+    main > form {
+        grid-row: 2 / -2;
+        grid-column: 2 / -2;
+
+        grid-template: repeat(12, 1fr) / repeat(12, 1fr);
+    }
+
+    .form-group {
+        grid-row: span 3;
+        grid-column: span 6;
+        display: grid;
+        grid-template: repeat(6, 1fr) / repeat(6, 1fr);
+    }
+
+    .form-group > * {
+        grid-column: 2 / -2;
+    }
+
+    .form-group > label {
+        grid-row: span 2;
+        place-self: center;
+    }
+
+    .form-group > input {
+        grid-row: span 2;
+    }
+
+    #description > label {
+        grid-row: 1;
+    }
+
+    #description > textarea {
+        grid-row: span 4;
+    }
+
+    #description {
+        grid-row: 1 / 10;
+        grid-column: 7 / -1;
+    }
+
+    #submit {
+        grid-row: 11;
+        grid-column: 6 / 8;
+    }
+
+    #submit:hover {
+        border-radius: 5%;
+        color: var(--secondary-text-color);
+        background-color: var(--secondary-bg-color);
+        transition: all 0.4s ease-out;
+    }
+
+    input, textarea {
+        color: var(--main-text-color);
+        background-color: var(--lighter-main-bg-color);
+        border: 0;
+    }
+
+    span {
+        color: red;
+    }
+
+</style>
+
+
+<form class="grid" asp-action="Create">
+    <div asp-validation-summary="ModelOnly"></div>
+    <section class="form-group">
+        <label>Title</label>
+        <input asp-for="Title" placeholder="Course Title"/>
+        <span asp-validation-for="Title"></span>
+    </section>
+    <section class="form-group">
+        <label>Maximum Students</label>
+        <input asp-for="MaxStudents" placeholder="Course Students Limit"/>
+        <span asp-validation-for="MaxStudents"></span>
+    </section>
+    <section class="form-group">
+        <label>Duration</label>
+        <input asp-for="Duration" placeholder="Course Duration In Hours"/>
+        <span asp-validation-for="Duration"></span>
+    </section>
+
+    <section class="form-group" id="description">
+        <label>Description</label>
+        <textarea asp-for="Description" placeholder="Short Description For Course"></textarea>
+        <span asp-validation-for="Description"></span>
+    </section>
+
+    <input id="submit" type="submit" value="Create" />
+</form>

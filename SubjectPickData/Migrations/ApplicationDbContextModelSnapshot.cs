@@ -31,14 +31,11 @@ namespace CoursePickData.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("nvarchar(120)");
 
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("time");
+                    b.Property<long>("Duration")
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MaxStudents")
-                        .HasColumnType("int");
+                    b.Property<long>("MaxStudents")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -148,7 +145,7 @@ namespace CoursePickData.Migrations
             modelBuilder.Entity("CoursePickData.Models.Course", b =>
                 {
                     b.HasOne("CoursePickData.Models.Tutor", "Tutor")
-                        .WithMany()
+                        .WithMany("Courses")
                         .HasForeignKey("TutorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -169,6 +166,11 @@ namespace CoursePickData.Migrations
                         .HasForeignKey("StudentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CoursePickData.Models.Tutor", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }

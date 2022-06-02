@@ -51,7 +51,6 @@ nav {
     background-color: var(--lighter-main-bg-color);
 }
 
-
 nav a {
     background-color: transparent;
     color: var(--main-text-color);
@@ -59,7 +58,7 @@ nav a {
 
 nav a:hover {
     border-radius: 32%;
-    background-color: var(--secondary-bg-color);
     color: var(--secondary-text-color);
+    background-color: var(--secondary-bg-color);
     transition: all 0.4s ease-out;
 }

@@ -67,9 +67,8 @@
         <a asp-controller="Courses" asp-action="Details" asp-route-id="@course.Id">
             <h2>@course.Title</h2>
 
-            <h3>Type: @course.Duration</h3>
             <h3>Max Students: @course.MaxStudents</h3>
-            <h3>Duration: @course.Duration.TotalHours hours</h3>
+            <h3>Duration: @course.Duration hours</h3>
         </a>
     }
 </section>

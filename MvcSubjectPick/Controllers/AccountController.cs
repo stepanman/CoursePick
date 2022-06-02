@@ -51,9 +51,9 @@ namespace CoursePick.Controllers
         }
 
         [Authorize]
-        public IActionResult Details()
+        public async Task<IActionResult> Details()
         {
-            IdentityUser user = _signInManager.UserManager.GetUserAsync(User).Result;
+            IdentityUser user = await _signInManager.UserManager.GetUserAsync(User);
             if (User.IsInRole("Student"))
             {
                 return RedirectToAction("Details", "Students", new { _dbInteractor.GetStudentByEmailAsync(user.Email).Result.Id });

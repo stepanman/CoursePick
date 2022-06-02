@@ -17,17 +17,30 @@ namespace CoursePickDataAccess
             _context = context;
         }
 
-        public Task<List<Course>> GetCoursesAsync()
+        public Task<List<Course>> GetAllCoursesAsync()
         {
-            return _context.Courses.Include(c => c.Tutor).ToListAsync();
+            return _context.Courses.Include(c => c.Tutor).Include(c => c.Students).ToListAsync();
         }
 
-        public Task<List<Student>> GetStudentsAsync()
+        public Task<List<Course>> GetCoursesOfTutorAsync(int tutorId)
+        {
+            return _context.Courses.Include(c => c.Tutor).Where(c => c.TutorId == tutorId).Include(c => c.Students).ToListAsync();
+        }
+
+        public Task<List<Student>> GetAllStudentsAsync()
         {
             return _context.Students.ToListAsync();
         }
 
-        public Task<List<Tutor>> GetTutorsAsync()
+        public Task<List<Student>> GetStudentsOfTutorAsync(int tutorId)
+        {
+            return _context.Students
+                            .Include(s => s.Courses)
+                            .Where(s => s.Courses.Select(c => c.TutorId).Any())
+                            .ToListAsync();
+        }
+
+        public Task<List<Tutor>> GetAllTutorsAsync()
         {
             return _context.Tutors.ToListAsync();
         }
@@ -38,6 +51,16 @@ namespace CoursePickDataAccess
                             .Include(c => c.Tutor)
                             .Include(c => c.Students)
                             .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        public Task<bool> CourseExists(int id)
+        {
+            return _context.Courses.AnyAsync(c => c.Id == id);
+        }
+
+        public Task<bool> CourseWithSameTitleExistsAsync(string title)
+        {
+            return _context.Courses.AnyAsync(c => c.Title == title);
         }
 
         public Task<Student> GetStudentByIdAsync(int id)
@@ -71,12 +94,10 @@ namespace CoursePickDataAccess
                             .FirstOrDefaultAsync(t => t.Email == email);
         }
 
-        public Task<List<Student>> GetStudentsOfTutorAsync(int id)
+        public Task<int> AddCourseAsync(Course course)
         {
-            return _context.Students
-                            .Include(s => s.Courses)
-                            .Where(s => s.Courses.Select(c => c.TutorId).Contains(id))
-                            .ToListAsync();
+            _context.Courses.Add(course);
+            return _context.SaveChangesAsync();
         }
     }
 }

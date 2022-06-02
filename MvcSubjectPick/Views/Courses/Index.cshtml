@@ -42,14 +42,14 @@
     }
 </style>
 
-<h1>Courses</h1>
+<h1>My Courses</h1>
 <section class="flex flex-wrap">
     @foreach (var course in Model)
     {
         <a asp-action="Details" asp-route-id="@course.Id">
             <h1>@course.Title</h1>
-            <h2>Duration: @course.Duration.TotalHours hours</h2>
-            <h2>Max Students: @course.MaxStudents</h2>
+            <h2>Duration: @course.Duration hours</h2>
+            <h2>Students: @course.Students.Count() / @course.MaxStudents</h2>
         </a>
     }
 </section>

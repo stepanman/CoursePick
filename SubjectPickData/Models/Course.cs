@@ -11,8 +11,8 @@ namespace CoursePickData.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public int MaxStudents { get; set; }
-        public TimeSpan Duration { get; set; }
+        public uint MaxStudents { get; set; }
+        public uint Duration { get; set; }
 
         public ICollection<Student> Students { get; set; }
 
